@@ -2,21 +2,17 @@
  * Patrick Gillespie
  * bubble_sort.cpp
  * JAN 25 2016
+ * This program creates a vector <input> rand numbers between 0 - 1000000 and
+ * then sorts the vector using bubble sort. Numbers are then output in order.
  ******************************************************************************/
-
-
-
 #include <iostream>
-#include <functional>   // modulus,
+#include <functional>   /* modulus */
 #include <stdlib.h>     /* srand, rand */
-#include <utility>      // swap
+#include <utility>      /* swap */
 #include <time.h>       /* time */
 #include <vector>
 
 using namespace std;
-
-
-
 
 main()
 {
@@ -42,8 +38,4 @@ main()
     for (int i = 0; i < n; i++ )
         cout << v[i] << endl; 
 
-}
-
-
-
-
+} // main
