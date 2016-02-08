@@ -17,8 +17,8 @@ using namespace std;
 
 // simple string class
 class String {
-    char * buffer = nullptr;
-    size_t size = 0;
+    char * buffer;
+    size_t size;
 
 public:
     // constructors
@@ -29,41 +29,24 @@ public:
     // deconstrutor
     ~String();
 
-    // basic methods
-    char * begin();
-    char * end();
-    int length();
-
     // operators
     String operator =  ( const String & );
     String operator += ( const String & );
     String operator += ( const char * );
     char & operator [] (const int);
 
-    // comparison operators
-    bool operator == ( const String & );
-    bool operator != ( const String & );
-    bool operator >  ( const String & );
-    bool operator <  ( const String & );
-    bool operator >= ( const String & );
-    bool operator <= ( const String & );
-
     // utility methods
-    size_t length() const { return _str_len; }
-    size_t size() const { return _str_len; }
-    const char & begin();
-    const char & end();
-
-
+    int length() ; // return length
+    const char & begin(); //return first char
+    const char & end(); // return last char
+    void reset(); // reset data
+    void reset(const int); // reset data
 
     // other methods
     friend bool operator==(const String &, const String &);
     friend bool operator<=(const String &, const String &);
     friend bool operator<(const String &, const String &);
     friend ostream & operator<<(ostream &, const String &);
-} // String
-
-// non-member operator overloads
-String operator + ( const String & lhs, const String & rhs );
+}; // String
 
 #endif // __PGLIB__String__H
