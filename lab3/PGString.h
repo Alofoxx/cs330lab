@@ -32,7 +32,6 @@ public:
     // operators
     String operator =  ( const String & );
     String operator += ( const String & );
-    String operator += ( const char * );
     char operator [] (const int);
 
     // utility methods

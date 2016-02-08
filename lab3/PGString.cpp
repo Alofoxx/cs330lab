@@ -17,13 +17,14 @@ using namespace std;
 // constructors/destructors
 String::String( )
 {
-    reset();
+    buffer = 0;
+    size = 0;
 } // default constructor
 
-String::String( const char * char_string )
+String::String(const char * char_string )
 {
-    this->size = strlen(char_string);
-    this->buffer = new char[size];
+    size = strlen(char_string);
+    buffer = new char[size];
     for( int i = 0; i < size; i++ ){
         buffer[i] = char_string[i];
     }
@@ -40,7 +41,8 @@ String::String( const String & source )
 
 String::~String()
 {
-    reset();
+    delete [] buffer;
+    size = 0;
 } // destructor
 
 // basic methods
@@ -61,9 +63,9 @@ int String::length()
 
 void String::reset()
 {
-    if(buffer)
+    //if(buffer)
         delete [] buffer;
-    buffer = new char[0];
+    buffer = 0;
     size = 0;
 } // reset
 
@@ -102,13 +104,6 @@ String String::operator += ( const String & source )
     temp.reset(0);
     return *this;
 } // += string
-
-String String::operator += ( const char * char_string )
-{
-    String source = char_string;
-    *this += source;        
-    return *this;
-} // += char string
 
 char String::operator[] ( const int index )
 {
