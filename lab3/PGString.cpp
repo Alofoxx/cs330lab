@@ -44,14 +44,14 @@ String::~String()
 } // destructor
 
 // basic methods
-const char & String::begin()
+char * String::begin()
 {
-    return buffer[0];
+    return buffer;
 } // begin
 
-const char & String::end()
+char * String::end()
 {
-    return buffer[size - 1];
+    return buffer + size;
 } // end
 
 int String::length()
@@ -158,9 +158,3 @@ ostream & operator << ( ostream & out, const String & my_string )
         out << my_string.buffer[i];
     return out;
 } // << string
-
-main()
-{
-
-}
-

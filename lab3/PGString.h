@@ -37,8 +37,8 @@ public:
 
     // utility methods
     int length() ; // return length
-    const char & begin(); //return first char
-    const char & end(); // return last char
+    char * begin(); //return first char
+    char * end(); // return last char
     void reset(); // reset data
     void reset(const int); // reset data
 
