@@ -111,7 +111,7 @@ String String::operator + ( const String & source )
     if(source.size < 1)
         return * this;
     String temp; // hold original value
-    this->reset(size + source.size);
+    temp.reset(size + source.size);
     for( int i = 0; i < temp.size; i++ ){
         if(i < size){
             temp.buffer[i] = buffer[i];
@@ -119,7 +119,7 @@ String String::operator + ( const String & source )
             temp.buffer[i] = source.buffer[i - size];
         }
     }
-    return * temp;
+    return temp;
 } //+ string
 
 String String::operator - ( const String & source )
