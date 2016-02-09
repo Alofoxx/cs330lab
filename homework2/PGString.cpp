@@ -110,17 +110,16 @@ String String::operator + ( const String & source )
     // make sure source not empty
     if(source.size < 1)
         return * this;
-    String temp = * this; // hold original value
-    this->reset(temp.size + source.size);
-    for( int i = 0; i < size; i++ ){
-        if(i < temp.size){
-            this->buffer[i] = temp.buffer[i];
+    String temp; // hold original value
+    this->reset(size + source.size);
+    for( int i = 0; i < temp.size; i++ ){
+        if(i < size){
+            temp.buffer[i] = buffer[i];
         }else{
-            this->buffer[i] = source.buffer[i - temp.size];
+            temp.buffer[i] = source.buffer[i - size];
         }
     }
-    temp.reset(0);
-    return *this;
+    return * temp;
 } //+ string
 
 String String::operator - ( const String & source )
