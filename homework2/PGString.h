@@ -33,8 +33,6 @@ public:
     String operator =  ( const String & );
     String operator += ( const String & );
     String operator + ( const String & );
-    String operator - ( const String & );
-    String operator * ( const String & );
     char operator [] (const int);
 
     // utility methods
@@ -48,6 +46,8 @@ public:
     friend bool operator==(const String &, const String &);
     friend bool operator<=(const String &, const String &);
     friend bool operator<(const String &, const String &);
+    String operator - ( const String & );
+    String operator * ( const int & );
     friend ostream & operator<<(ostream &, const String &);
 }; // String
 

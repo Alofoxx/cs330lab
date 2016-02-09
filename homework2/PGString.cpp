@@ -105,6 +105,73 @@ String String::operator += ( const String & source )
     return *this;
 } // += string
 
+String String::operator + ( const String & source )
+{
+    // make sure source not empty
+    if(source.size < 1)
+        return * this;
+    String temp = * this; // hold original value
+    this->reset(temp.size + source.size);
+    for( int i = 0; i < size; i++ ){
+        if(i < temp.size){
+            this->buffer[i] = temp.buffer[i];
+        }else{
+            this->buffer[i] = source.buffer[i - temp.size];
+        }
+    }
+    temp.reset(0);
+    return *this;
+} //+ string
+
+String String::operator - ( const String & source )
+{
+    // make sure source not empty
+    if(source.size < 1)
+        return *this;
+    String temp = * this; // hold original value
+    int i = 0; // main iterator for this-> buffer
+    int x,j = 0; 
+    int temp_position, temp_size = 0; // buffer iterator and final size of temp
+    bool match; // used to control loops
+    while ( i < size ){
+        match = true;
+        x = i;
+        j = 0;
+        while ( j < source.size && match){
+            if( size < source.size || buffer[x] != source.buffer[j])
+                match = false;
+            x++; j++;
+        }
+        if(! match){
+            temp.buffer[temp_position] = buffer[i];
+            temp_position++; // move buffer iterator for temp
+            temp_size++; // increase final size of temp
+        }
+        i++;
+    }
+    String result;
+    result.reset(temp_size); //sets the buffer and size to temp_size
+    x=0;
+    while(x < temp_size){
+        result.buffer[x] = temp.buffer[x];
+        x++;
+    }
+    return result;
+           
+} //- string
+
+String String::operator * ( const int & amount )
+{
+    String result;
+    result.reset( size * amount); //set buffer and size of result
+    int i = 0;
+    while(i < result.size){
+        result.buffer[i] = buffer[ i%size ];
+        i++;
+    }
+    return result; 
+} //* string
+
 char String::operator[] ( const int index )
 {
     if(index < 0) return 0;
@@ -153,3 +220,24 @@ ostream & operator << ( ostream & out, const String & my_string )
         out << my_string.buffer[i];
     return out;
 } // << string
+
+
+main()
+{
+   String s1 = "abc";
+   String s2 = "def";
+   String s3 = s1;
+   s3 + s2; // should be abcdef
+   cout << s1 << " + " << s2 << " = " s3 << endl;
+
+   String s4 = "abcbbccdf";
+   String s5 = "bc";
+   String s6 = s4;
+   s6 - s5; // should be abcdf
+   cout << s4 << " - " << s5 << " = " s6 << endl;
+   
+   String s7 = s1 * 3; // should be abcabcabc
+   cout << s1 << " * 3 = " << s7 << endl;
+   
+   cout << "End Test";
+}
