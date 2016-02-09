@@ -138,11 +138,13 @@ String String::operator - ( const String & source )
         x = i;
         j = 0;
         while ( j < source.size && match){
-            if( size < source.size || buffer[x] != source.buffer[j])
+            if( (size - i) < source.size || buffer[x] != source.buffer[j])
                 match = false;
             x++; j++;
         }
-        if(! match){
+        if(match){
+            i = x - 1;
+        } else {
             temp.buffer[temp_position] = buffer[i];
             temp_position++; // move buffer iterator for temp
             temp_size++; // increase final size of temp
