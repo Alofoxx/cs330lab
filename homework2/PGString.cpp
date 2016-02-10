@@ -227,12 +227,12 @@ main()
    String s1 = "abc";
    String s2 = "def";
    String s3 = s1 + s2; // should be abcdef
-   cout << s1 << " + " << s2 << " = " s3 << endl;
+   cout << s1 << " + " << s2 << " = " << s3 << endl;
 
    String s4 = "abcbbccdf";
    String s5 = "bc";
    String s6 = s4 - s5; // should be abcdf
-   cout << s4 << " - " << s5 << " = " s6 << endl;
+   cout << s4 << " - " << s5 << " = " << s6 << endl;
    
    String s7 = s1 * 3; // should be abcabcabc
    cout << s1 << " * 3 = " << s7 << endl;
