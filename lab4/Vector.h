@@ -96,6 +96,25 @@ Vector<T>::~Vector()
     my_capacity = 0;
 } // deconstructor
 
+template <class T>
+unsigned int Vector<T>::capacity() const
+{
+    return my_capacity;
+} // capacity
+
+template <class T>
+unsigned int Vector<T>::size() const
+{
+    return my_size;
+} // size
+
+template <class T>
+bool Vector<T>::empty() const
+{
+    if( my_size > 0 )
+        return false;
+    return true;
+} // empty
 
 template <class T>
 // This line doesn't compile: Vector<T>::iterator Vector<T>::begin()
@@ -103,10 +122,97 @@ template <class T>
 // But the follwoing line is the better solution:
 typename Vector<T>::iterator Vector<T>::begin()
 {
-        return buffer;
+    return buffer;
 }
 
-// Rest of your code goes here ...
+template <class T>
+typename Vector<T>::iterator Vector<T>::end()
+{
+    return buffer + my_size;
+}
 
+template <class T>
+T & Vector<T>::front()
+{
+    return & buffer[0];
+}
+
+template <class T>
+T & Vector<T>::back()
+{
+    return & buffer[my_size - 1];
+}
+
+template <class T>
+void Vector<T>::push_back(const T & value)
+{
+    int next_position = my_size;
+    if(my_capacity == my_size)
+        this->resize( my_capacity + 5);
+    my_size++;
+    buffer[next_position] = value;
+}
+
+template <class T>
+void Vector<T>::pop_back()
+{
+    if(my_size > 1) 
+        buffer[--my_size] = T();
+}
+
+template <class T>
+void Vector<T>::reserve(unsigned int capacity)
+{
+    if(capacity > my_capacity) {
+        Vector temp = this;
+        delete [] buffer;
+        buffer = new T[capacity];
+        for(int i = 0; i < my_size; i++)
+            buffer[i] = temp.buffer[i];
+        for(int j = my_size; j < my_capacity; j++)
+            buffer[j] = T();
+        delete temp;
+        my_capacity = capacity;
+    }
+}
+
+template <class T>
+void Vector<T>::resize(unsigned int size)
+{
+    if(size > my_capacity){
+        this->reserve(size);
+    } else if(size < my_capacity){
+        Vector temp = this;
+        delete [] buffer;
+        buffer = new T[size];
+        if(my_size > size)
+            my_size = size;
+        for(int i = 0; i < my_size; i++)
+            buffer[i] = temp.buffer[i];
+        for(int j = my_size; j < my_capacity; j++)
+            buffer[j] = T();
+        delete temp;
+        my_capacity = size;
+    }
+}
+
+template <class T>
+T & Vector<T>::operator[](unsigned int index)
+{
+    if (index < my_capacity && index >= 0)
+        return & buffer[index];
+    return & buffer[0];
+}
+
+template <class T>
+Vector<T> & Vector<T>::operator=(const Vector<T> & right_side)
+{
+    delete [] buffer;
+    my_size = right_side.my_size;
+    my_capacity = right_side.my_capacity;
+    buffer = new T[my_capacity];
+    for(int i = 0; i < my_capacity; i++)
+        buffer[i] = right_side.buffer[i];
+}
 #endif
 
