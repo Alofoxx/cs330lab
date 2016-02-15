@@ -50,6 +50,7 @@ private:
 
 // Two sample methods follow
 
+//time complexity: O(1)
 template <class T>
 Vector<T>::Vector()
 {
@@ -58,8 +59,9 @@ Vector<T>::Vector()
 	buffer = 0;
 } // default constructor
 
+//time complexity: O(n)
 template <class T>
-Vector<T>::Vector(unsigned size)
+Vector<T>::Vector(unsigned int size)
 {
     my_size = size;
     my_capacity = size;
@@ -68,6 +70,7 @@ Vector<T>::Vector(unsigned size)
         buffer[i] = T(); // set correct default value for type of T
 } // constructor with size
 
+//time complexity: O(n)
 template <class T>
 Vector<T>::Vector(unsigned int size, const T & initial)
 {
@@ -78,6 +81,7 @@ Vector<T>::Vector(unsigned int size, const T & initial)
         buffer[i] = initial; // set the initial values to passed param
 } // constructor with size and initial value
 
+//time complexity: O(n)
 template <class T>
 Vector<T>::Vector(const Vector<T> & v)
 {
@@ -88,6 +92,7 @@ Vector<T>::Vector(const Vector<T> & v)
         buffer[i] = v.buffer[i];
 } // copy constructor
 
+//time complexity: O(1)
 template <class T>
 Vector<T>::~Vector()
 {
@@ -96,18 +101,21 @@ Vector<T>::~Vector()
     my_capacity = 0;
 } // deconstructor
 
+//time complexity: O(1)
 template <class T>
 unsigned int Vector<T>::capacity() const
 {
     return my_capacity;
 } // capacity
 
+//time complexity: O(1)
 template <class T>
 unsigned int Vector<T>::size() const
 {
     return my_size;
 } // size
 
+//time complexity: O(1)
 template <class T>
 bool Vector<T>::empty() const
 {
@@ -116,33 +124,35 @@ bool Vector<T>::empty() const
     return true;
 } // empty
 
+//time complexity: O(1)
 template <class T>
-// This line doesn't compile: Vector<T>::iterator Vector<T>::begin()
-// This line compiles:        T * Vector<T>::begin()
-// But the follwoing line is the better solution:
 typename Vector<T>::iterator Vector<T>::begin()
 {
     return buffer;
 }
 
+//time complexity: O(1)
 template <class T>
 typename Vector<T>::iterator Vector<T>::end()
 {
     return buffer + my_size;
 }
 
+//time complexity: O(1)
 template <class T>
 T & Vector<T>::front()
 {
     return & buffer[0];
 }
 
+//time complexity: O(1)
 template <class T>
 T & Vector<T>::back()
 {
     return & buffer[my_size - 1];
 }
 
+//time complexity: O(1)
 template <class T>
 void Vector<T>::push_back(const T & value)
 {
@@ -153,57 +163,60 @@ void Vector<T>::push_back(const T & value)
     buffer[next_position] = value;
 }
 
+//time complexity: O(1)
 template <class T>
 void Vector<T>::pop_back()
 {
-    if(my_size > 1) 
-        buffer[--my_size] = T();
+    if(my_size > 0) 
+        --my_size;
 }
 
+//time complexity: O(n)
 template <class T>
 void Vector<T>::reserve(unsigned int capacity)
 {
     if(capacity > my_capacity) {
-        Vector temp = this;
-        delete [] buffer;
-        buffer = new T[capacity];
+        T * new_buffer = new T[capacity];
         for(int i = 0; i < my_size; i++)
-            buffer[i] = temp.buffer[i];
+            new_buffer[i] = buffer[i];
         for(int j = my_size; j < my_capacity; j++)
-            buffer[j] = T();
-        delete temp;
+            new_buffer[j] = T();
         my_capacity = capacity;
+        delete [] buffer;
+        buffer = new_buffer;
     }
 }
 
+//time complexity: O(n)
 template <class T>
 void Vector<T>::resize(unsigned int size)
 {
     if(size > my_capacity){
         this->reserve(size);
     } else if(size < my_capacity){
-        Vector temp = this;
-        delete [] buffer;
-        buffer = new T[size];
+        T * new_buffer = new T[size];
+        my_capacity = size;
         if(my_size > size)
             my_size = size;
         for(int i = 0; i < my_size; i++)
-            buffer[i] = temp.buffer[i];
+            new_buffer[i] = buffer[i];
         for(int j = my_size; j < my_capacity; j++)
-            buffer[j] = T();
-        delete temp;
-        my_capacity = size;
+            new_buffer[j] = T();
+        delete [] buffer;
+        buffer = new_buffer;
     }
 }
 
+//time complexity: O(1)
 template <class T>
 T & Vector<T>::operator[](unsigned int index)
 {
     if (index < my_capacity && index >= 0)
-        return & buffer[index];
-    return & buffer[0];
+        return  buffer[index];
+    return buffer[0];
 }
 
+//time complexity: O(n)
 template <class T>
 Vector<T> & Vector<T>::operator=(const Vector<T> & right_side)
 {
